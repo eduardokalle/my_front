@@ -8,7 +8,7 @@ const { Header, Content } = LayoutAnt;
 
 const menus = [
   { path: '/', label: 'Crud' },
-  { path: '/Salir', label: 'Salir' }
+  { path: '/login', label: 'Salir' }
 ];
 
 const Layout = ({ location, children }) => {

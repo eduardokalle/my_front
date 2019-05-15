@@ -5,6 +5,7 @@ import {Route, BrowserRouter, Switch } from 'react-router-dom';
 import {Crud}  from './pages';
 import * as serviceWorker from './serviceWorker';
 import Layout from './Component/Layout';
+import Login from './Component/Login';
 
 import './index.css';
 import 'antd/dist/antd.css';
@@ -12,10 +13,10 @@ import 'antd/dist/antd.css';
 function App() {
     return (
         <BrowserRouter>
+          <Route path="/login" component={Login} />
           <Layout>
             <Switch>
-              <Route exact path="/" component={Crud} />
-              
+             <Route exact path="/" component={Crud} />
             </Switch>
           </Layout>
         </BrowserRouter>
