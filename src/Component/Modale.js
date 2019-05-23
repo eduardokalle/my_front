@@ -28,7 +28,7 @@ class Modale extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary" id= 'edite' onClick={this.showModal}>
+        <Button type="primary"  shape="circle" icon="edit" id= 'edite' onClick={this.showModal}>
         </Button>
         <ModalAnt
           title="Editar Registro "

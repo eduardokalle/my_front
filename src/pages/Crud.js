@@ -67,7 +67,8 @@ const columns = [
     dataIndex: '*',
     render: (text, record) => (
       <span>
-        <Button type="primary"  shape="circle" icon="edit" onClick={(e) => Modale}/>
+        {/*<Button type="primary"  shape="circle" icon="edit" onClick={(e) => Modale}/>*/}
+        <Modale type="primary"  shape="circle" icon="edit" />
         <Button type="danger" id='delete'  shape="circle" icon="delete"/>
       </span>
     ),

@@ -2,21 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import {Crud}  from './pages';
+import {Crud , Login}  from './pages';
 import * as serviceWorker from './serviceWorker';
 import Layout from './Component/Layout';
-import Login from './Component/Login';
 
 import './index.css';
 import 'antd/dist/antd.css';
 //import App from './App';
+
+
 function App() {
     return (
         <BrowserRouter>
-          <Route path="/login" component={Login} />
           <Layout>
             <Switch>
              <Route exact path="/" component={Crud} />
+             <Route  path="/login" component={Login} />
             </Switch>
           </Layout>
         </BrowserRouter>
