@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal as ModalAnt, Button , Form, Input,InputNumber} from 'antd';
+import axios from 'axios';
 
 class Modale extends React.Component {
   state = { visible: false };
@@ -15,6 +16,18 @@ class Modale extends React.Component {
     this.setState({
       visible: false,
     });
+    const id = this.props.id;
+    axios.put(`http://localhost:4000/api/tasks/${id}`)
+    .then((response) => {
+      setData(response.data.map(item => {        
+        return ({...item, key: item._id})
+
+      }));   
+      debugger;   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   handleCancel = e => {
@@ -23,7 +36,6 @@ class Modale extends React.Component {
       visible: false,
     });
   };
-
 
   render() {
     return (

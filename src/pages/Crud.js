@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { Table ,Button} from 'antd';
 import Modal from '../Component/Modal';
 import Modale from '../Component/Modale';
+import axios from 'axios';
 
 const columns = [
   {
@@ -9,24 +10,24 @@ const columns = [
     dataIndex: 'name',
     filters: [
       {
-        text: 'Joe',
-        value: 'Joe',
+        text: '',
+        value: '',
       },
       {
-        text: 'Jim',
-        value: 'Jim',
+        text: '',
+        value: '',
       },
       {
         text: 'Apellido',
         value: 'Last name',
         children: [
           {
-            text: 'Green',
-            value: 'Green',
+            text: '',
+            value: '',
           },
           {
-            text: 'Black',
-            value: 'Black',
+            text: '',
+            value: '',
           },
         ],
       },
@@ -39,21 +40,21 @@ const columns = [
   },
   {
     title: 'Edad',
-    dataIndex: 'age',
+    dataIndex: 'old',
     defaultSortOrder: 'descend',
-    sorter: (a, b) => a.age - b.age,
+    sorter: (a, b) => a.old - b.old,
   },
   {
     title: 'Direccion',
     dataIndex: 'address',
     filters: [
       {
-        text: 'London',
-        value: 'London',
+        text: '',
+        value: '',
       },
       {
-        text: 'New York',
-        value: 'New York',
+        text: '',
+        value: '',
       },
     ],
     
@@ -62,45 +63,50 @@ const columns = [
     sorter: (a, b) => a.address.length - b.address.length,
     sortDirections: ['descend', 'ascend'],
   },
+  /*{
+    title: '__v',
+    dataIndex: '__v',
+    defaultSortOrder: 'descend',
+  },*/
   {
-    title: '*',
+    title: '',
     dataIndex: '*',
     render: (text, record) => (
       <span>
         {/*<Button type="primary"  shape="circle" icon="edit" onClick={(e) => Modale}/>*/}
-        <Modale type="primary"  shape="circle" icon="edit" />
+        <Modale type="primary"  shape="circle" icon="edit" id={} />
         <Button type="danger" id='delete'  shape="circle" icon="delete"/>
       </span>
     ),
   },
 ];
 
-const data = [
+/*const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    name: '',
+    age: '',
+    address: '',
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    name: '',
+    age: '',
+    address: '',
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
+    name: '',
+    age: '',
+    address: '',
   },
   {
     key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
+    name: '',
+    age: '',
+    address: '',
   },
-];
+];*/
 
 function onChange(pagination, filters, sorter) {
   console.log('params', pagination, filters, sorter);
@@ -108,6 +114,24 @@ function onChange(pagination, filters, sorter) {
 
 
 function Crud() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/tasks')
+    .then((response) => {
+      setData(response.data.map(item => {        
+        return ({...item, key: item._id})
+
+      }));   
+      debugger;   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
+  
+
+
 
   return(
     <div>

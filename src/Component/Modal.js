@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal as ModalAnt, Button , Form, Input,InputNumber} from 'antd';
 
+
+
 class Modal extends React.Component {
   state = { visible: false };
 
@@ -39,12 +41,12 @@ class Modal extends React.Component {
         >
         <div>
           <div>Nombre : </div>
-          <Input  placeholder="Introduce tu Nombre" />
+          <Input  id="NN" placeholder="Introduce tu Nombre" />
           <br/>
           <div>Edad: </div>
-          <InputNumber min={10} max={100} defaultValue={15}  />
+          <InputNumber  id="EN" min={10} max={100} defaultValue={15}  />
           <div>Direccion: </div>
-          <Input  placeholder="Introduce tu Direccion" />
+          <Input  id="DN" placeholder="Introduce tu Direccion" />
 
           
         </div>
