@@ -1,8 +1,6 @@
 import React from 'react';
 import { Modal as ModalAnt, Button , Form, Input,InputNumber} from 'antd';
 
-
-
 class Modal extends React.Component {
   state = { visible: false };
 
