@@ -4,13 +4,25 @@ import axios from 'axios';
 
 function Modale ({ title, setVisible, setRegistro, visible, registro }) { 
 
-  /*const showModal = () => {
-    setVisible(true);
-  };*/
+  const [ setData ] = useState([]);
+
   console.log('registro == ', registro);
   const handleOk = e => {
     console.log(e);
     // setVisible(false);
+
+    axios.put('http://localhost:4000/api/tasks')
+    .then((response) => {
+      setData(response.data.map(item => {        
+        return ({...item, key: item._id})
+
+      }));   
+      // debugger;   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   };
 
   const handleCancel = e => {

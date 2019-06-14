@@ -1,8 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { Table ,Button} from 'antd';
-import Modal from '../Component/Modal';
- import Modale from '../Component/Modale';
+import ModalAdd from '../Component/ModalAdd';
+import Modale from '../Component/Modale';
 import axios from 'axios';
+import FormEdit from '../Component/FormEdit';
 
 
 function onChange(pagination, filters, sorter) {
@@ -14,6 +15,10 @@ function Crud() {
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [registro, setRegistro] = useState({});
+  const [title , setTitle] = useState("");
+  const [visibleAdd, setVisibleAdd] = useState(false);
+  
+
   useEffect(() => {
     axios.get('http://localhost:4000/api/tasks')
     .then((response) => {
@@ -32,6 +37,28 @@ function Crud() {
     console.log("record == ", record);
     setVisible(true);    
     setRegistro(record);
+    setTitle("Editar Tarea");
+
+  }
+
+  const agregar  = () => {
+    setVisibleAdd(true);
+    setTitle("Nueva Tarea");
+  }
+
+  const eliminar = (record) => {
+    axios.delete('http://localhost:4000/api/tasks/${_id}')
+    .then((response) => {
+      setData(response.data.map(item => {        
+        return ({...item, key: item._id})
+
+      }));   
+      // debugger;   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   }
 
   const columns = [
@@ -99,7 +126,7 @@ function Crud() {
         <span>
          <Button type="primary"  shape="circle" icon="edit" onClick={() => editar(record)} />
           {/*<Modale type="primary"  shape="circle" icon="edit" id={"id"} onClick={editar(record)} />*/}
-          <Button type="danger" id='delete'  shape="circle" icon="delete"/>
+          <Button type="danger" id='delete'  shape="circle" icon="delete" onClick={() => eliminar(record)} />
         </span>
       ),
     },
@@ -107,8 +134,9 @@ function Crud() {
 
   return(
     <div>
-      <Modal/>
-      <Modale title="Edit Task" visible={visible} setVisible={() => setVisible()}  setRegistro={() => setRegistro()} registro={registro} />
+      <Modale title={title} visible={visible} setVisible={() => setVisible()}  setRegistro={() => setRegistro()} registro={registro} />
+      <ModalAdd title={title} visible={visibleAdd} setVisibleAdd={() => setVisibleAdd()} />
+      <Button type="primary"  shape="SQUARE" icon="save" onClick={() => agregar()} >Agregar Nuevo</Button>
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );
