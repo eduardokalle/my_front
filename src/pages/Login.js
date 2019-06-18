@@ -66,5 +66,4 @@ function Login(props) {
   );
 }
 
-
 export default Form.create()(Login);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal as ModalAnt, Button , Form, Input,InputNumber} from 'antd';
 import axios from 'axios';
 
-function Modale ({ title, setVisible, setRegistro, visible, registro }) { 
+function ModalEdit ({ title, setVisible, setRegistro, visible, registro }) { 
 
   const [ setData ] = useState([]);
 
@@ -54,5 +54,5 @@ function Modale ({ title, setVisible, setRegistro, visible, registro }) {
   );
 }
 
-export default Modale;
+export default ModalEdit;
           

@@ -1,32 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Modal as ModalAnt, Button, Form, Input, InputNumber } from 'antd';
 import axios from 'axios';
-import FormEdit from './FormEdit';
+import FormEdit from './FormAdd';
+import FormAdd from './FormAdd';
 
 function ModalAdd({ title, setVisibleAdd, visible, ...props }) {
-  
-  const [ setData ] = useState([]);
+
+  const [setData] = useState([]);
 
   console.log('visible == ', visible);
-  
 
-  const handleOk = event => {
-    event.preventDefault();
-
-    axios.post('http://localhost:4000/api/tasks')
-    .then((response) => {
-      setData(response.data.map(item => {        
-        return ({...item, key: item._id})
-
-      }));   
-      // debugger;   
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
-
+  const form = props.form;
 
   const handleCancel = e => {
     console.log(e);
@@ -34,16 +18,29 @@ function ModalAdd({ title, setVisibleAdd, visible, ...props }) {
 
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        setVisibleAdd(false);
+      }
+    });
+  };
+
   return (
     <ModalAnt
-      title={title}
       visible={visible}
-      onOk={handleOk}
+      title="Agregar Usuario"
+      okText="Create"
       onCancel={handleCancel}
-    >
-      <FormEdit />
-    </ModalAnt>    
+      onOk={handleSubmit}
+    >      
+      <Form layout="vertical">
+        <FormAdd form={form} Item={Form.Item} />
+      </Form>
+    </ModalAnt> 
   );
 }
 
-export default ModalAdd;
+export default Form.create()(ModalAdd);

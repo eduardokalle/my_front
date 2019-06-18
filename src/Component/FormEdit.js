@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 import { Modal as ModalAnt, Button, Form, Input, InputNumber } from 'antd';
 
@@ -11,7 +12,7 @@ const FormEdit = (props) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+           props.form.validateFields((err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);
           }
@@ -42,12 +43,12 @@ const FormEdit = (props) => {
             <Input placeholder="Introduce tu Direccion" onChange={handleChange} />,
           )}
         </Form.Item>
-        <Form.Item>
-
-          Button          
-        </Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+            Saved
+          </Button>
       </Form>
     );
 }
 
 export default Form.create()(FormEdit);
+*/
