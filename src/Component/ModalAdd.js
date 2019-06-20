@@ -4,9 +4,7 @@ import axios from 'axios';
 import FormEdit from './FormAdd';
 import FormAdd from './FormAdd';
 
-function ModalAdd({ title, setVisibleAdd, visible, ...props }) {
-
-  const [setData] = useState([]);
+function ModalAdd({ title, setVisibleAdd, visible, setData, dataList, ...props }) {
 
   console.log('visible == ', visible);
 
@@ -19,14 +17,31 @@ function ModalAdd({ title, setVisibleAdd, visible, ...props }) {
   };
 
   const handleSubmit = e => {
+
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        setVisibleAdd(false);
+        axios.post('http://localhost:4000/api/tasks', {...values, old: (values.old).toString()})
+        .then((response) => {
+          dataList.push({ ...response.data.task, key: response.data.task._id  });
+          setData(dataList);
+          form.setFieldsValue({
+            name: "",
+            old: "",
+            address: ""
+          });
+          setVisibleAdd(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });       
       }
     });
   };
+
+
+  
+  
 
   return (
     <ModalAnt
@@ -35,6 +50,7 @@ function ModalAdd({ title, setVisibleAdd, visible, ...props }) {
       okText="Create"
       onCancel={handleCancel}
       onOk={handleSubmit}
+      
     >      
       <Form layout="vertical">
         <FormAdd form={form} Item={Form.Item} />

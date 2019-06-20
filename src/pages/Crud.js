@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
 import ModalAdd from '../Component/ModalAdd';
-import Modale from '../Component/ModalEdit';
 import axios from 'axios';
-import FormEdit from '../Component/FormEdit';
 import { Popconfirm, message } from 'antd';
 import ModalEdit from '../Component/ModalEdit';
 
@@ -50,19 +48,9 @@ function Crud() {
     setVisibleAdd(true);
     setTitle("Nuevo Usuario");
 
-    axios.post('http://localhost:4000/api/tasks')
-      .then((response) => {
-        setData(response.data.map(item => {
-          return ({ ...item, key: item._id })
-
-        }));
-        // debugger;   
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
   }
+
+ 
 
   const eliminar = (record) => {
     axios.delete('http://localhost:4000/api/tasks/${_id}')
@@ -160,8 +148,8 @@ function Crud() {
   return (
     <div>
       <ModalEdit title={title} visible={visible} setVisible={() => setVisible()} setRegistro={() => setRegistro()} registro={registro} />
-      <ModalAdd title={title} visible={visibleAdd} setVisibleAdd={() => setVisibleAdd()}  onOk={agregar} />
-      <Button type="primary" shape="SQUARE" icon="save" onClick={() => agregar() }  onOk={agregar} >Agregar Nuevo</Button>
+      <ModalAdd title={title} visible={visibleAdd} setVisibleAdd={() => setVisibleAdd()} setData={setData} dataList={data}/>
+      <Button type="primary" shape="SQUARE" icon="save" onClick={() => agregar() }  >Agregar Nuevo</Button>
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );

@@ -2,27 +2,35 @@ import React, { useState } from 'react';
 import { Modal as ModalAnt, Button , Form, Input,InputNumber} from 'antd';
 import axios from 'axios';
 
-function ModalEdit ({ title, setVisible, setRegistro, visible, registro }) { 
+function ModalEdit ({ title, setVisible, setRegistro, visible, registro, dataList, ...props}) { 
+
+  const form = props.form;
 
   const [ setData ] = useState([]);
 
   console.log('registro == ', registro);
-  const handleOk = e => {
-    console.log(e);
-    // setVisible(false);
 
-    axios.put('http://localhost:4000/api/tasks')
+
+  const handleSubmit = e => {
+
+    e.preventDefault();
+    props.form.validateFields(( values) => {
+   
+    axios.put('http://localhost:4000/api/tasks', {...values, old: (values.old).toString()})
     .then((response) => {
-      setData(response.data.map(item => {        
-        return ({...item, key: item._id})
-
-      }));   
-      // debugger;   
+      dataList.push({ ...response.data.task, key: response.data.task._id  });
+      setData(dataList);
+      form.setFieldsValue({
+        name: "",
+        old: "",
+        address: ""
+      });
+      setVisible(false);
     })
     .catch((error) => {
       console.log(error);
     });
-
+    });
   };
 
   const handleCancel = e => {
@@ -36,9 +44,11 @@ function ModalEdit ({ title, setVisible, setRegistro, visible, registro }) {
       <ModalAnt
         title={title}
         visible={visible}
-        onOk={handleOk}
+        onOk={handleSubmit}
         onCancel={handleCancel}
       >
+        <Form layout="vertical" form={form} Item={Form.Item}>
+        
       <div>
         <div>Nombre : </div>
         <Input placeholder="Introduce tu Nombre" value={registro ? registro.name : ""} />
@@ -48,6 +58,9 @@ function ModalEdit ({ title, setVisible, setRegistro, visible, registro }) {
         <div>Direccion: </div>
         <Input placeholder="Introduce tu Direccion" value={registro ? registro.address : ""} />
       </div>
+
+      </Form>
+      
 
       </ModalAnt>
     </div>
