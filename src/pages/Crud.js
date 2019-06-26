@@ -147,7 +147,7 @@ function Crud() {
 
   return (
     <div>
-      <ModalEdit title={title} visible={visible} setVisible={() => setVisible()} setRegistro={() => setRegistro()} registro={registro} />
+      <ModalEdit title={title} visible={visible} setVisible={() => setVisible()} setRegistro={() => setRegistro()} registro={registro} setData={setData} dataList={data} />
       <ModalAdd title={title} visible={visibleAdd} setVisibleAdd={() => setVisibleAdd()} setData={setData} dataList={data}/>
       <Button type="primary" shape="SQUARE" icon="save" onClick={() => agregar() }  >Agregar Nuevo</Button>
       <Table columns={columns} dataSource={data} onChange={onChange} />

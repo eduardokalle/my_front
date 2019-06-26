@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal as ModalAnt, Button, Form, Input, InputNumber } from 'antd';
 import axios from 'axios';
-import FormEdit from './FormAdd';
 import FormAdd from './FormAdd';
 
 function ModalAdd({ title, setVisibleAdd, visible, setData, dataList, ...props }) {
@@ -47,7 +46,8 @@ function ModalAdd({ title, setVisibleAdd, visible, setData, dataList, ...props }
     <ModalAnt
       visible={visible}
       title="Agregar Usuario"
-      okText="Create"
+      okText="Crear"
+      cancelText="Cancelar"
       onCancel={handleCancel}
       onOk={handleSubmit}
       
