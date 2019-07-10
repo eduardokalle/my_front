@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Form, Input, Icon, Checkbox, Button, Row, Col } from 'antd';
 
 
 
-function Login(props) {
+const Login = ({form, loading, postLogin}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.form.validateFields((err, values) => {
+    form.validateFields((err, values) => {
       if (!err) {
-        debugger;
-        alert(`Bienvenido: ${values.userName}`);
+        postLogin(values);
       }
     });
   };
 
-  const { getFieldDecorator } = props.form;
+  const { getFieldDecorator } = form;
   return (
     <Row type="flex" justify="center">
       <Col span={8}>
@@ -66,4 +66,12 @@ function Login(props) {
   );
 }
 
-export default Form.create()(Login);
+const mapState = state => ({
+  loading: state.auth.loading
+});
+
+const mapDispatch = dispatch => ({
+  postLogin: dispatch.auth.authentication
+});
+
+export default connect(mapState, mapDispatch)(Form.create()(Login));

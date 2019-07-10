@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import {Layout as LayoutAnt, Menu,} from 'antd';
+import {Layout as LayoutAnt, Menu} from 'antd';
 
-const { Header, Content } = LayoutAnt;
+const { SubMenu } = Menu;
+const { Header, Content, Sider} = LayoutAnt;
 
 const menus = [
-  { path: '/', label: 'Crud' },
+  { path: '/', label: 'Home' },
+  { path: '/crud', label: 'Crud' },
   { path: '/login', label: 'Salir' }
+  
 ];
 
 const Layout = ({ location, children }) => {
@@ -27,6 +30,7 @@ const Layout = ({ location, children }) => {
         ))}
       </Menu>
     </Header>
+    
     <LayoutAnt>
       <LayoutAnt style={{ padding: '24px' }}>
         <Content style={{

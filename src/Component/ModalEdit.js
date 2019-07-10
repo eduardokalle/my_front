@@ -30,6 +30,7 @@ function ModalEdit({ title, setVisible, setRegistro, visible, registro, dataList
               }
             }
           });
+          dataList.push({ ...response.data.task, key: response.data.task._id  });
           setData(dataList);
           form.setFieldsValue({
             name: "",
