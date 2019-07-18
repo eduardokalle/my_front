@@ -30,6 +30,14 @@ const fields = [
         rules: [{ required: true, message: 'Please input your password!' }],
       },
     component: <Password placeholder="Contraseña" />
+  },
+  {
+    key: 'confirm_password',
+    label: 'Confirmar Contraseña',
+    options: {
+        rules: [{ required: true, message: 'Please input your password!' }],
+      },
+    component: <Password placeholder="Contraseña confirmada" />
   }
 ];
 

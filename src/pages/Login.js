@@ -48,14 +48,14 @@ const Login = ({form, loading, postLogin}) => {
                   <Checkbox>Recordarme</Checkbox>
                 )}
               </Col>
-              <Col style={{ float: "right" }}>
+              {/*<Col style={{ float: "right" }}>
                 <a className="login-form-forgot" href="">¿Has olvidado tu contraseña?</a>
-              </Col>
+              </Col>*/}
             </Row>
             <Row>
               <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: "100%" }}>
                 Iniciar sesión
-              </Button>
+                </Button>
             </Row>
             ó <a href="/register">¡Registrarme ahora!</a>
           </Form.Item>
