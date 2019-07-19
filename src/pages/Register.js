@@ -1,7 +1,11 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd';
+import axios from 'axios';
+import { Alert } from 'antd';
 
-const { Password } = Input;
+const { Password, setData, dataup, ...props } = Input;
+
+const form = props.form;
 
 const fields = [
   {
@@ -30,14 +34,6 @@ const fields = [
         rules: [{ required: true, message: 'Please input your password!' }],
       },
     component: <Password placeholder="Contraseña" />
-  },
-  {
-    key: 'confirm_password',
-    label: 'Confirmar Contraseña',
-    options: {
-        rules: [{ required: true, message: 'Please input your password!' }],
-      },
-    component: <Password placeholder="Contraseña confirmada" />
   }
 ];
 
@@ -45,15 +41,28 @@ function Register(props) {
   const { getFieldDecorator } = props.form;
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.form.validateFields((err, values) => {
-      if (!err) {
-        alert('Campos almacenados: ', values);
-      }
+    props.form.validateFields((err, values) => {if (!err) {
+      axios.post('http://localhost:4000/api/users/signup')
+      console.log()
+      .then((response) => {
+        dataup.push({ ...response.data.user});
+        setData(dataup);
+        ({
+          name: values.name,
+          email: values.mail,
+          pass: values.password
+        })
+        .catch((error) => {
+        console.log(error);
+      });       
+      console.log(e);
     });
-  }
+    }
+  });
+};
 
   return(
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} form={form} Item={Form.Item}>
 
       {fields.map(item => (
         <Form.Item label={item.label} wrapperCol={{span:12}} labelCol={{span:4}}>
@@ -65,6 +74,7 @@ function Register(props) {
       <Form.Item wrapperCol={{offset:4}}>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Guardar
+          
         </Button>
       </Form.Item>
 
