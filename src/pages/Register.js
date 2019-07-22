@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Alert } from 'antd';
 
@@ -17,7 +18,7 @@ const fields = [
     component: <Input placeholder="Nombre" />
   },
   {
-    key: 'mail',
+    key: 'email',
     label: 'Correo',
     options: {
         rules: [
@@ -28,7 +29,7 @@ const fields = [
     component: <Input placeholder="Correo" />
   },
   {
-    key: 'password',
+    key: 'pass',
     label: 'Contraseña',
     options: {
         rules: [{ required: true, message: 'Please input your password!' }],
@@ -42,20 +43,21 @@ function Register(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {if (!err) {
-      axios.post('http://localhost:4000/api/users/signup')
-      console.log()
+      axios.post('http://localhost:4000/api/users/signup', { ...values })
       .then((response) => {
-        dataup.push({ ...response.data.user});
+        /* dataup.push({ ...response.data.user});
         setData(dataup);
         ({
           name: values.name,
           email: values.mail,
           pass: values.password
-        })
-        .catch((error) => {
-        console.log(error);
-      });       
+        })*/
+        alert("Registrado");
+        props.history.push("/");
       console.log(e);
+    })
+    .catch((error) => {
+      console.log(error);
     });
     }
   });
@@ -82,4 +84,4 @@ function Register(props) {
   );
 
 }
-export default Form.create()(Register);
+export default withRouter(Form.create()(Register));
